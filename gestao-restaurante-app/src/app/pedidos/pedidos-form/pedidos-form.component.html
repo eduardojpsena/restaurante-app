@@ -1,0 +1,63 @@
+<ol class="breadcrumb mb-4 bg-dark">
+    <li class="text-warning">
+        <font size="5">
+            {{ pedido.id ? 'Editar Pedido' : 'Novo Pedido'}}
+        </font>
+    </li>
+</ol>
+<br>
+<div class="container">
+    <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-light">Item: *</label>
+                    <input  type="text" class="form-control" 
+                            [(ngModel)]="pedido.item" name="item">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-light">Preço: *</label>
+                    <input  type="text" class="form-control" 
+                            [(ngModel)]="pedido.preco" name="preco">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-light">Quantidade: *</label>
+                    <input  type="text" class="form-control" 
+                            [(ngModel)]="pedido.quantidade" name="quantidade">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-light">Mesa: *</label>
+                    <option *ngFor="let status of pedido.status">{{ status }}</option>
+                    <input  type="text" class="form-control" 
+                            [(ngModel)]="pedido.mesa" name="mesa">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-warning" *ngIf='!pedido.id'>
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-warning" *ngIf='pedido.id'>
+                    <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+            </div>
+        </div>
+
+
+    </form>
+</div>

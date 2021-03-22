@@ -1,0 +1,115 @@
+<ol class="breadcrumb mb-4 bg-dark">
+    <li class="text-warning">
+        <font size="5">
+            Consultar Pedidos
+        </font>
+    </li>
+</ol>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="form-group text-warning">
+                <label>Mesa: </label>
+                <select [(ngModel)]="mesa" class="ml-3 bg-dark text-light" name="mesa">
+                    <option value="0">Todas</option>
+                    <option *ngFor="let mesa of consultarPedido()" [Value]="mesa">
+                        {{ mesa }}
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-outline-warning"
+                            (click)="consultarPedido()">
+                        <i class="fa fa-search"></i> Pesquisar
+                    </button>
+                </div>
+            </div>
+            <br>
+            <table class="table table-condensed table-hover table-dark text-warning">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Item</th>
+                        <th>Preço</th>
+                        <th>Quantidade</th>
+                        <th>Mesa</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="text-light">
+                    <tr *ngFor="let pedido of pedidos">
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.item }}</td>
+                        <td>{{ pedido.preco }}</td>
+                        <td>{{ pedido.quantidade }}</td>
+                        <td>{{ pedido.mesa }}</td>
+                        <td>{{ pedido.status }}</td>
+                        <td>
+                            <button class="btn btn-outline-success"
+                                    data-toggle="modal" data-target="#modalConclusao"
+                                    (click)="preparaSelecao(pedido)">
+                                <i class="fa fa-check"></i>
+                            </button>
+                            <button class="btn btn-outline-danger ml-2" 
+                                    data-toggle="modal" data-target="#modalCancelamento"
+                                    (click)="preparaSelecao(pedido)">
+                                <i class="fa fa-times"></i>
+                            </button>
+                            <button class="btn btn-outline-warning ml-2" 
+                                    routerLink="/pedidos-novo/{{ pedido.id }}">
+                                <i class="fa fa-user-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="modalConclusao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="pedidoSelecionado">
+                    Deseja concluir o pedido "{{ pedidoSelecionado.item }}"?"
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" data-dismiss="modal" 
+                            (click)="concluirPedido()">
+                        Sim
+                    </button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal">
+                        Não
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalCancelamento" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Cancelar</h4>
+                </div>
+                <div class="modal-body" *ngIf="pedidoSelecionado">
+                    Deseja cancelar o pedido "{{ pedidoSelecionado.item }}"?"
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" data-dismiss="modal" 
+                            (click)="cancelarPedido()">
+                        Sim
+                    </button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal">
+                        Não
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
