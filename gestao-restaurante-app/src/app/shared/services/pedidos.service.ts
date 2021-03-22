@@ -11,7 +11,7 @@ export class PedidosService {
 
   apiUrl: string = environment.apiURLBase + '/api/pedidos'
 
-  constructor( private http: HttpClient) {}
+  constructor( private http: HttpClient ) {}
 
   salvar( pedido: Pedido ): Observable<Pedido> {
     pedido.status = "Novo"

@@ -1,0 +1,73 @@
+<ol class="breadcrumb mb-4 bg-dark">
+    <li class="text-warning">
+        <font size="5">
+            Cardápio
+        </font>
+    </li>
+</ol>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-outline-warning"
+                            routerLink="/cardapio-form">
+                        <i class="fa fa-plus"></i> Novo
+                    </button>
+                </div>
+            </div>
+            <br>
+            <table class="table table-condensed table-hover table-dark text-warning">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Preço</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody class="text-light">
+                    <tr *ngFor="let item of cardapio">
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.nome }}</td>
+                        <td>{{ item.preco }}</td>
+                        <td>
+                            <button class="btn btn-outline-warning" 
+                                    routerLink="/cardapio-form/{{ item.id }}">
+                                <i class="fa fa-user-edit"></i>
+                            </button>
+                            <button class="btn btn-outline-danger ml-2"
+                                    data-toggle="modal" data-target="#modalDelecao" 
+                                    (click)="preparaSelecao(item)">
+                                <i class="fa fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalDelecao" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Confirmação</h4>
+            </div>
+            <div class="modal-body" *ngIf="itemSelecionado">
+                Deseja deletar o item "{{ itemSelecionado.nome }}"?"
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-primary" data-dismiss="modal" 
+                        (click)="deletarPedido()">
+                    Sim
+                </button>
+                <button class="btn btn-outline-danger" data-dismiss="modal">
+                    Não
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -17,10 +17,10 @@ export class PedidosFormComponent implements OnInit {
   errors!: String[];
   id: number;
 
-  constructor( 
+  constructor(
     private pedidoService: PedidosService,
-    private activatedRoute: ActivatedRoute 
-    ) { 
+    private activatedRoute: ActivatedRoute
+  ) {
     this.pedido = new Pedido();
   }
 
@@ -41,26 +41,26 @@ export class PedidosFormComponent implements OnInit {
   onSubmit() {
     if (this.id) {
       this.pedidoService.atualizar(this.pedido)
-          .subscribe( (response: Pedido) => {
-            this.success = true;
-            this.errors = [];
-            this.pedido.status = response.status;
-            SweetAlert.exibirSucesso('Sucesso', `Item "${response.item}" atualizado com sucesso!`)
-          }, (erroResponse) => {
-            SweetAlert.exibirErro('Erro', `Erro ao atualizar pedido`)
-          }) 
+        .subscribe((response: Pedido) => {
+          this.success = true;
+          this.errors = [];
+          this.pedido.status = response.status;
+          SweetAlert.exibirSucesso('Sucesso', `Item "${response.item}" atualizado com sucesso!`)
+        }, (erroResponse) => {
+          SweetAlert.exibirErro('Erro', `Erro ao atualizar pedido`)
+        })
     } else {
       this.pedidoService
-      .salvar(this.pedido)
-      .subscribe( (response: Pedido) => {
-        this.success = true;
-        this.errors = [];
-        SweetAlert.exibirSucesso('Sucesso', `Item "${response.item}" salvo com sucesso!`)
-        this.pedido = new Pedido();
-      }, (errorResponse) => {
-        this.success = false;
-        SweetAlert.exibirErro('Erro', `${errorResponse.error.errors}`)
-      })
+        .salvar(this.pedido)
+        .subscribe((response: Pedido) => {
+          this.success = true;
+          this.errors = [];
+          SweetAlert.exibirSucesso('Sucesso', `Item "${response.item}" salvo com sucesso!`)
+          this.pedido = new Pedido();
+        }, (errorResponse) => {
+          this.success = false;
+          SweetAlert.exibirErro('Erro', `${errorResponse.error.errors}`)
+        })
     }
   }
 }

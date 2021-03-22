@@ -9,24 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group text-warning">
-                <label>Mesa: </label>
-                <select [(ngModel)]="mesa" class="ml-3 bg-dark text-light" name="mesa">
-                    <option value="0">Todas</option>
-                    <option *ngFor="let mesa of consultarPedido()" [Value]="mesa">
-                        {{ mesa }}
-                    </option>
-                </select>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    <button type="submit" class="btn btn-outline-warning"
-                            (click)="consultarPedido()">
-                        <i class="fa fa-search"></i> Pesquisar
-                    </button>
-                </div>
-            </div>
-            <br>
+            
             <table class="table table-condensed table-hover table-dark text-warning">
                 <thead>
                     <tr>
@@ -62,6 +45,11 @@
                                     routerLink="/pedidos-novo/{{ pedido.id }}">
                                 <i class="fa fa-user-edit"></i>
                             </button>
+                            <button class="btn btn-danger ml-2" 
+                                    data-toggle="modal" data-target="#modalDelecao"
+                                    (click)="preparaSelecao(pedido)">
+                                <i class="fa fa-trash-alt"></i>
+                            </button>
                         </td>
                     </tr>
                 </tbody>
@@ -81,6 +69,28 @@
                 <div class="modal-footer">
                     <button class="btn btn-outline-primary" data-dismiss="modal" 
                             (click)="concluirPedido()">
+                        Sim
+                    </button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal">
+                        Não
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDelecao" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Confirmação</h4>
+                </div>
+                <div class="modal-body" *ngIf="pedidoSelecionado">
+                    Deseja excluir o pedido "{{ pedidoSelecionado.item }}"?"
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-outline-primary" data-dismiss="modal" 
+                            (click)="deletarPedido()">
                         Sim
                     </button>
                     <button class="btn btn-outline-danger" data-dismiss="modal">

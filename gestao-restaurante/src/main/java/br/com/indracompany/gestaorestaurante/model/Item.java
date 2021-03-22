@@ -13,7 +13,7 @@ public class Item {
     private long id;
 
     @Column
-    private String nomeItem;
+    private String nome;
 
     @Column
     private Double preco;

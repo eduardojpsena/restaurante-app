@@ -7,7 +7,7 @@
 </ol>
 <br>
 <div class="container">
-    <form #clienteForm="ngForm" (ngSubmit)="onSubmit()">
+    <form #pedidoForm="ngForm" (ngSubmit)="onSubmit()">
         <br>
         <div class="row">
             <div class="col-md-6">
@@ -48,7 +48,7 @@
         <br>
         <div class="row">
             <div class="col-md-2">
-                <button type="submit" class="btn btn-warning" *ngIf='!pedido.id'>
+                <button type="submit" class="btn btn-outline-warning" *ngIf='!pedido.id'>
                     <i class="fa fa-save"></i> Salvar
                 </button>
 
@@ -57,7 +57,5 @@
                 </button>
             </div>
         </div>
-
-
     </form>
 </div>

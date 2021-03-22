@@ -7,18 +7,24 @@ import { TemplateModule } from './template/template.module';
 import { HomeComponent } from './home/home.component';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { PedidosService } from './shared/services/pedidos.service';
+import { CardapioComponent } from './cardapio/cardapio.component';
+import { CardapioFormComponent } from './cardapio/cardapio-form/cardapio-form.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    CardapioComponent,
+    CardapioFormComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     TemplateModule,
-    PedidosModule
+    PedidosModule,
+    FormsModule
   ],
   providers: [
     PedidosService

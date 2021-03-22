@@ -1,0 +1,46 @@
+<ol class="breadcrumb mb-4 bg-dark">
+    <li class="text-warning">
+        <font size="5">
+            {{ cardapio.id ? 'Editar Item' : 'Novo Item'}}
+        </font>
+    </li>
+</ol>
+<br>
+<div class="container">
+    <form #cardapioForm="ngForm" (ngSubmit)="onSubmit()">
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-light">Nome: *</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="cardapio.nome">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label class="text-light">Preço: *</label>
+                    <input type="text" class="form-control" name="preco" [(ngModel)]="cardapio.preco">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-warning" *ngIf='!cardapio.id'>
+                    <i class="fa fa-save"></i> Salvar
+                </button>
+
+                <button type="submit" class="btn btn-warning" *ngIf='cardapio.id'>
+                    <i class="fa fa-sync-alt"></i> Atualizar
+                </button>
+            </div>
+            <div class="col-md" style="text-align: right;">
+                <button type="button" class="btn btn-outline-warning"
+                        routerLink="/cardapio">
+                    <i class="fa fa-arrow-alt-circle-left"></i> Voltar
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
