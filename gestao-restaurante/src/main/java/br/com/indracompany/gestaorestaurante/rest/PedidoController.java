@@ -28,10 +28,22 @@ public class PedidoController {
         return pedidoRepository.save(pedido);
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<Pedido>>getAll() {
+//        List<Pedido> pedidos = pedidoRepository.findAll();
+//        return new ResponseEntity<>(pedidos, HttpStatus.OK);
+//    }
+
     @GetMapping
-    public ResponseEntity<List<Pedido>>getAll() {
-        List<Pedido> pedidos = pedidoRepository.findAll();
-        return new ResponseEntity<>(pedidos, HttpStatus.OK);
+    public ResponseEntity<List<Pedido>> pesquisar( @RequestParam(value = "mesa", required = false ) String mesa ){
+        if (mesa == "") {
+            List<Pedido> pedidos = pedidoRepository.findAll();
+            return new ResponseEntity<>(pedidos, HttpStatus.OK);
+        } else {
+            List<Pedido> pedidos = pedidoRepository.findByMesaPedido(mesa);
+            return new ResponseEntity<>(pedidos, HttpStatus.OK);
+        }
+
     }
 
     @GetMapping(path = "/{id}")
@@ -64,6 +76,8 @@ public class PedidoController {
 
                 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Pedido não encontrado"));
     }
+
+
 
 
 //    @PostMapping

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Cardapio } from 'src/app/cardapio/cardapio';
+import { CardapioService } from 'src/app/shared/services/cardapio.service';
 import { PedidosService } from 'src/app/shared/services/pedidos.service';
 import { SweetAlert } from 'src/app/shared/sweet-alert';
 import { Pedido } from '../pedido';
@@ -15,13 +17,29 @@ export class PedidosFormComponent implements OnInit {
   pedido: Pedido;
   success: boolean = false;
   errors!: String[];
+  mesa: string;
+  mesas: string[];
   id: number;
+  cardapio: Cardapio[];
+  valor: string;
 
   constructor(
     private pedidoService: PedidosService,
+    private cardapioService: CardapioService,
     private activatedRoute: ActivatedRoute
   ) {
+    this.mesas = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
     this.pedido = new Pedido();
+  }
+
+  pegarValor(valor: string){
+    this.cardapio.forEach(element => {
+      if (element.nome == valor) {
+        this.pedido.preco = element.preco
+      } if (valor == "0") {
+        this.pedido.preco = ""
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -36,9 +54,15 @@ export class PedidosFormComponent implements OnInit {
           )
       }
     });
+    this.cardapioService
+      .getCardapio()
+      .subscribe(response => this.cardapio = response)
+    
   }
 
   onSubmit() {
+    console.log(this.pedido.item)
+
     if (this.id) {
       this.pedidoService.atualizar(this.pedido)
         .subscribe((response: Pedido) => {

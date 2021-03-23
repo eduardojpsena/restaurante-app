@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <div class="form-group text-warning" *ngIf="!mesaSelecionada">
+            <div class="form-group text-warning">
                 <label>Mesa: </label>
                 <select [(ngModel)]="mesa" class="ml-3 bg-dark text-light" name="mesa">
                     <option value="">Selecione...</option>
@@ -18,10 +18,10 @@
                     </option>
                 </select>
             </div>
-            <div class="row" *ngIf="!mesaSelecionada">
+            <div class="row">
                 <div class="col-md-3">
                     <button type="submit" class="btn btn-outline-warning"
-                            (click)="consultarPedidos()">
+                            (click)="pesquisarPedidos()">
                         <i class="fa fa-search"></i> Pesquisar
                     </button>
                 </div>
@@ -33,14 +33,18 @@
                         <th>Item</th>
                         <th>Preço</th>
                         <th>Quantidade</th>
+                        <th>Mesa</th>
+                        <th>Status</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody class="text-light">
                     <tr *ngFor="let pedido of pedidos">
                         <td>{{ pedido.item }}</td>
-                        <td>{{ pedido.preco }}</td>
+                        <td>R$ {{ pedido.preco }}</td>
                         <td>{{ pedido.quantidade }}</td>
+                        <td>{{ pedido.mesa }}</td>
+                        <td>{{ pedido.status }}</td>
                         <td></td>
                     </tr>
                 </tbody>
@@ -49,16 +53,47 @@
                         <th>Valor Total</th>
                         <th></th>
                         <th></th>
+                        <th></th>
                         <th>R$ {{ valorTotal }}</th>
                     </tr>
                 </tfoot>
             </table>
             <br>
-            <div class="row" *ngIf="mesaSelecionada">
+            <div class="row">
                 <div class="col-md-3">
-                    <button type="submit" class="btn btn-outline-warning"
-                            (click)="finalizarPedidos()">
+                    <button type="button" class="btn btn-outline-warning"
+                            data-toggle="modal" data-target="#modalFechamento"
+                            (click)="preparaFinalizacao()">
                         <i class="fa fa-clipboard-check"></i> Fechar Conta
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalFechamento" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>Fechamento de conta</h4>
+                </div>
+                <div class="modal-body" *ngIf="mesa">
+                    Deseja finalizar o pedido da "mesa {{ mesa }}"?"
+                </div>
+                <div class="modal-body" *ngIf="!mesa">
+                    Por favor selecione uma mesa
+                </div>
+                <div class="modal-footer" *ngIf="mesa">
+                    <button class="btn btn-outline-primary" data-dismiss="modal" 
+                            (click)="finalizarPedidos()">
+                        Sim
+                    </button>
+                    <button class="btn btn-outline-danger" data-dismiss="modal">
+                        Não
+                    </button>
+                </div>
+                <div class="modal-footer" *ngIf="!mesa">
+                    <button class="btn btn-outline-secondary" data-dismiss="modal">
+                        Ok
                     </button>
                 </div>
             </div>

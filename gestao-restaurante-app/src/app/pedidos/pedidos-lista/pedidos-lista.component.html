@@ -9,7 +9,24 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            
+            <div class="form-group text-warning">
+                <label>Mesa: </label>
+                <select [(ngModel)]="mesa" class="ml-3 bg-dark text-light" name="mesa">
+                    <option value="">Todas</option>
+                    <option *ngFor="let mesa of mesas" [Value]="mesa">
+                        {{ mesa }}
+                    </option>
+                </select>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-outline-warning" 
+                            (click)="pesquisarPedidos()">
+                        <i class="fa fa-search"></i> Pesquisar
+                    </button>
+                </div>
+            </div>
+            <br>
             <table class="table table-condensed table-hover table-dark text-warning">
                 <thead>
                     <tr>
@@ -26,28 +43,29 @@
                     <tr *ngFor="let pedido of pedidos">
                         <td>{{ pedido.id }}</td>
                         <td>{{ pedido.item }}</td>
-                        <td>{{ pedido.preco }}</td>
+                        <td>R$ {{ pedido.preco }}</td>
                         <td>{{ pedido.quantidade }}</td>
                         <td>{{ pedido.mesa }}</td>
                         <td>{{ pedido.status }}</td>
                         <td>
                             <button class="btn btn-outline-success"
                                     data-toggle="modal" data-target="#modalConclusao"
+                                    data-placement="left" title="Concluir" 
                                     (click)="preparaSelecao(pedido)">
                                 <i class="fa fa-check"></i>
                             </button>
-                            <button class="btn btn-outline-danger ml-2" 
+                            <button class="btn btn-outline-secondary ml-2"
                                     data-toggle="modal" data-target="#modalCancelamento"
-                                    (click)="preparaSelecao(pedido)">
+                                    title="Cancelar" (click)="preparaSelecao(pedido)">
                                 <i class="fa fa-times"></i>
                             </button>
-                            <button class="btn btn-outline-warning ml-2" 
+                            <button class="btn btn-outline-warning ml-2" title="Editar"
                                     routerLink="/pedidos-novo/{{ pedido.id }}">
                                 <i class="fa fa-user-edit"></i>
                             </button>
-                            <button class="btn btn-danger ml-2" 
+                            <button class="btn btn-outline-danger ml-2" 
                                     data-toggle="modal" data-target="#modalDelecao"
-                                    (click)="preparaSelecao(pedido)">
+                                    title="Deletar" (click)="preparaSelecao(pedido)">
                                 <i class="fa fa-trash-alt"></i>
                             </button>
                         </td>

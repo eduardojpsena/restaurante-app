@@ -20,12 +20,20 @@ export class PedidosListaComponent implements OnInit {
     private pedidoService: PedidosService
   ) {
     this.pedidoSelecionado = new Pedido();
-    this.mesas = ["1", "2", "3", "4", "5"]
+    this.mesas = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 
   }
 
   ngOnInit(): void {
-    this.getAllPedidos();
+    this.pedidoService
+      .getPedidos()
+      .subscribe((response) => this.pedidos = response);
+  }
+
+  pesquisarPedidos() {
+    this.pedidoService
+        .getPedidos(this.mesa)
+        .subscribe(response => this.pedidos = response)
   }
 
   preparaSelecao(pedido: Pedido) {
@@ -33,6 +41,7 @@ export class PedidosListaComponent implements OnInit {
   }
 
   deletarPedido() {
+    console.log(this.pedidoSelecionado)
     this.pedidoService
       .deletar(this.pedidoSelecionado)
       .subscribe(response => {
@@ -59,12 +68,6 @@ export class PedidosListaComponent implements OnInit {
       .subscribe((response: Pedido) => {
         this.pedidoSelecionado.status = response.status;
       })
-  }
-
-  getAllPedidos() {
-    this.pedidoService
-      .getPedidos()
-      .subscribe((response) => this.pedidos = response);
   }
 
 }

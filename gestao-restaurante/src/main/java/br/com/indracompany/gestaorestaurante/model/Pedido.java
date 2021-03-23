@@ -20,13 +20,13 @@ public class Pedido {
 
     @Column
     @NotNull(message = "O campo preço é obrigatório")
-    private Double   preco;
+    private Double preco;
 
     @Column
     @NotNull(message = "O campo quantidade é obrigatório")
     private Integer quantidade;
 
-    @Column
+    @Column(name = "mesa")
     @NotEmpty(message = "O campo mesa é obrigatório")
     private String mesa;
 

@@ -23,7 +23,6 @@ export class CardapioComponent implements OnInit {
 
   preparaSelecao(item: Cardapio) {
     this.itemSelecionado = item;
-
   }
 
   deletarPedido() {
